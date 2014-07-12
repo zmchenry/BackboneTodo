@@ -21,21 +21,20 @@ app.AppView = Backbone.View.extend({
     // Bind to relevant events on the "Todos" collection
     // Start by loading preexisting todos from local storage
     initialize: function() {
-        this.allCheckbox = this.$("#toggle-all")[0];
-        this.$input = this.$("#new-todo");
-        this.$footer = this.$("#footer");
-        this.$main = this.$("#main");
+      this.allCheckbox = this.$('#toggle-all')[0];
+      this.$input = this.$('#new-todo');
+      this.$footer = this.$('#footer');
+      this.$main = this.$('#main');
 
-        // When add event is fired call addOne
-        this.listenTo(app.Todos, "add", this.addOne);
-        // When reset even is fired call addAll
-        this.listenTo(app.Todos, "reset", this.addAll);
+      this.listenTo(app.Todos, 'add', this.addOne);
+      this.listenTo(app.Todos, 'reset', this.addAll);
 
-        this.listenTo(app.Todos, "change:completed", this.filterOne);
-        this.listenTo(app.Todos, "filter", this.filterAll);
-        this.listenTo(app.Todos, "all", this.render);
+      // New
+      this.listenTo(app.Todos, 'change:completed', this.filterOne);
+      this.listenTo(app.Todos,'filter', this.filterAll);
+      this.listenTo(app.Todos, 'all', this.render);
 
-        app.Todos.fetch();
+      app.Todos.fetch();
     },
 
     // Refresh the statistics at footer keep the rest of the
@@ -53,10 +52,10 @@ app.AppView = Backbone.View.extend({
                 remaining: remaining
             }));
 
-            this.$("#filers li a")
-            .removeClass("selected")
-            .filter("[href=#/" + (app.TodoFilter || "") + '"]')
-            .addClass("selected");
+            this.$('#filters li a')
+            .removeClass('selected')
+            .filter('[href="#/' + ( app.TodoFilter || '' ) + '"]')
+            .addClass('selected');
         } else {
             this.$main.hide();
             this.$footer.hide();
@@ -69,7 +68,7 @@ app.AppView = Backbone.View.extend({
     // Create a view for todo then append to <ul>
     addOne: function (todo) {
         var view = new app.TodoView({model: todo});
-        $("todo-list").append(view.render().el);
+        $("#todo-list").append(view.render().el);
     },
 
     // Batch manipulate by iterating over all todos and

@@ -4,7 +4,7 @@ var app = app || {};
 var TodoList = Backbone.Collection.extend({
     model: app.Todo,
 
-    localStorage: new Backbone.LocalStorage("todos-backbone"),
+    localStorage: new Backbone.LocalStorage('todos-backbone'),
 
     // Get todos that have been completed
     completed: function() {
@@ -16,8 +16,9 @@ var TodoList = Backbone.Collection.extend({
     // Get todos that have not been completed
     remaining: function() {
         return this.without.apply(this, this.completed);
-    }
+    },
 
+    // Generates a sequence
     nextOrder: function() {
         if( !this.length) {
             return 1;
@@ -25,6 +26,7 @@ var TodoList = Backbone.Collection.extend({
         return this.last().get("order") + 1;
     },
 
+    // Used to sort by the order inserted
     comparator: function(todo) {
         return todo.get("order");
     }
