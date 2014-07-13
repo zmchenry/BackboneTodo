@@ -15,7 +15,7 @@ var TodoList = Backbone.Collection.extend({
 
     // Get todos that have not been completed
     remaining: function() {
-        return this.without.apply(this, this.completed);
+        return this.without.apply(this, this.completed());
     },
 
     // Generates a sequence
